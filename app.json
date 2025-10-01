@@ -4,7 +4,7 @@
     "slug": "booked",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/booked-icon.png",
     "scheme": "booked",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
