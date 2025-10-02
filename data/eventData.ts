@@ -1,9 +1,12 @@
-export interface Event {
-	event_id: number;
-	event_title: string;
-	event_date_time: string;
-	event_description: string;
-	book_id: string;
+export interface EventCardProps {
+	event: {
+		event_id: number;
+		event_title: string;
+		event_date_time: string;
+		event_description: string;
+		book_id: string;
+	};
+	book?:any;
 }
 
 export const events = [
@@ -11,14 +14,16 @@ export const events = [
 		event_id: 1,
 		event_title: "Stephenie Meyer Meet & Greet",
 		event_date_time: "24-10-2025",
-		event_description: "Meet the author of the best-selling vampire book series and get books signed.",
+		event_description:
+			"Meet the author of the best-selling vampire book series and get books signed.",
 		book_id: "lGjFtMRqp_YC",
 	},
 	{
 		event_id: 2,
 		event_title: "Mate Midnight Book Release Party",
 		event_date_time: "01-11-2025",
-		event_description: "Get your copy of the anticipated sequel to Bride by Ali Hazelwood, freebies are limited.",
+		event_description:
+			"Get your copy of the highly anticipated sequel to Bride by Ali Hazelwood, freebies are limited.",
 		book_id: "ztdIEQAAQBAJ",
 	},
 	{
