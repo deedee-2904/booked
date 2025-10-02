@@ -1,28 +1,38 @@
-import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import EventList from "@/components/EventList";
+import { Image, StyleSheet, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
 	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>booked.</Text>
-		</View>
+		<SafeAreaView style={styles.container}>
+			<Image style={styles.smallLogo} source={require("../../assets/images/booked-icon.png")} />
+			<Text style={styles.heading}>booked.</Text>
+			<EventList />
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
-	text: {
+	heading: {
 		color: "#fff",
 		fontSize: 40,
+		marginBottom:-50
+	},
+	subheading: {
+		color: "#fff",
+		fontSize: 30,
 	},
 	container: {
 		flex: 1,
+		paddingTop: 40,
 		backgroundColor: "#71a261ff",
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	button: {
-		fontSize: 20,
-		textDecorationLine: "underline",
-    color:"#fff"
+	smallLogo: {
+		width: 70,
+		height: 70,
+		marginTop:60,
+		marginBottom:10,
 	},
 });
