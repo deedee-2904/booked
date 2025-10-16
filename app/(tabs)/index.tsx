@@ -1,11 +1,16 @@
 import EventList from "@/components/EventList";
-import { Image, StyleSheet, Text } from "react-native";
+import { Image } from "@/components/ui/image";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
 	return (
 		<SafeAreaView style={styles.container}>
-			<Image style={styles.smallLogo} source={require("../../assets/images/booked-icon.png")} />
+			<Image
+				className="rounded-md aspect-[50/50]"
+				source={require("../../assets/images/booked-icon.png")}
+				alt="booked. logo - a green book with the letter b"
+			/>
 			<Text style={styles.heading}>booked.</Text>
 			<EventList />
 		</SafeAreaView>
@@ -16,7 +21,7 @@ const styles = StyleSheet.create({
 	heading: {
 		color: "#fff",
 		fontSize: 40,
-		marginBottom:-50
+		marginBottom: -50,
 	},
 	subheading: {
 		color: "#fff",
@@ -25,6 +30,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		paddingTop: 40,
+		paddingBottom: -100,
 		backgroundColor: "#71a261ff",
 		alignItems: "center",
 		justifyContent: "center",
@@ -32,7 +38,7 @@ const styles = StyleSheet.create({
 	smallLogo: {
 		width: 70,
 		height: 70,
-		marginTop:60,
-		marginBottom:10,
+		marginTop: 60,
+		marginBottom: 10,
 	},
 });

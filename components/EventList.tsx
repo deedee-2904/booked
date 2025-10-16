@@ -1,6 +1,6 @@
 import { events } from "@/data/eventData";
 import { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EventCard from "./EventCard";
 
@@ -16,11 +16,8 @@ export default function EventList() {
 	}, []);
 
 	return (
-		<SafeAreaView  style={{marginBottom:50}}>
+		<SafeAreaView style={styles.container}>
 			<ScrollView>
-				<Text style={{ color: "#fff", fontSize: 30, textAlign: "center" }}>
-					Here are your upcoming events!
-				</Text>
 				{events.map((event) => {
 					const book = books[event.event_id];
 					return <EventCard key={event.event_id} book={book} event={event} />;
@@ -29,3 +26,9 @@ export default function EventList() {
 		</SafeAreaView>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		marginBottom:50,
+	},
+});
