@@ -1,27 +1,35 @@
-import EventList from '@/components/EventList';
-import { Text, StyleSheet } from 'react-native';
+import EventList from "@/components/EventList";
+import { Button, ButtonIcon } from "@/components/ui/button";
+import { EditIcon } from "@/components/ui/icon";
+import { router } from "expo-router";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function EventScreen() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.heading}>All Events</Text>
-	  <EventList/>
-    </SafeAreaView>
-  );
+	return (
+		<SafeAreaView style={styles.container}>
+			<Text style={styles.heading}>All Events</Text>
+			<EventList />
+			<Button style={styles.button} size="xl" className="rounded-full" onPress={() => router.push("/events/add") }>
+				<ButtonIcon as={EditIcon} />
+			</Button>
+		</SafeAreaView>
+	);
 }
 
 const styles = StyleSheet.create({
 	heading: {
 		color: "#fff",
 		fontSize: 40,
-		marginBottom:-50
+		marginBottom: -50,
 	},
 	container: {
 		flex: 1,
-		marginBottom:-100,
+		paddingTop:30,
 		backgroundColor: "#71a261ff",
 		alignItems: "center",
 		justifyContent: "center",
+	},button:{
+		marginBottom:0
 	}
 });
