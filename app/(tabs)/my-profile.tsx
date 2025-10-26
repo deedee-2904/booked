@@ -4,6 +4,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>User Profile Screen</Text>
+      {/*Contains an events list with created events or signed up events*/}
     </View>
   );
 }
