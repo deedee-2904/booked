@@ -1,15 +1,18 @@
 export interface User {
 	username: string;
 	password: string;
+	isAdmin: boolean;
 }
 
 export const users = [
 	{
 		username: "admin",
-		password: "adminPassword",
+		password: "1234",
+		isAdmin:true
 	},
 	{
 		username: "customer",
-		password: "customerPassword",
+		password: "abcd",
+		isAdmin:false
 	},
 ];

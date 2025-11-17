@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function SingleEventScreen() {
 	const params = useLocalSearchParams<{ event_id: string }>();
@@ -24,6 +25,8 @@ export default function SingleEventScreen() {
 	const [signedUp, setSignedUp] = useState(false);
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	const [showCancelModal, setShowCancelModal] = useState(false);
+
+	const {currentUser}= useAuth()
 
 	// Load custom events from AsyncStorage
 	useEffect(() => {
@@ -132,7 +135,7 @@ export default function SingleEventScreen() {
 				)
 			)}
 
-			{!signedUp ? (
+			{!signedUp && !currentUser?.isAdmin? (
 				<>
 					<Button style={styles.signupbutton} onPress={() => setShowSignUpModal(true)}>
 						<ButtonText style={styles.text} size={"xl"}>
