@@ -122,7 +122,7 @@ export default function AddEventScreen() {
 						<FormControlLabel>
 							<FormControlLabelText>Event Title</FormControlLabelText>
 						</FormControlLabel>
-						<Input variant="filled" style={styles.input}>
+						<Input variant="outline" style={styles.input}>
 							<InputField
 								placeholder="Enter event title"
 								value={title}
@@ -168,7 +168,7 @@ export default function AddEventScreen() {
 						<FormControlLabel>
 							<FormControlLabelText>Description</FormControlLabelText>
 						</FormControlLabel>
-						<Textarea variant="filled" style={styles.textarea}>
+						<Textarea variant="default" style={styles.textarea}>
 							<TextareaInput
 								placeholder="Describe your event"
 								value={description}
@@ -189,7 +189,7 @@ export default function AddEventScreen() {
 						<FormControlLabel>
 							<FormControlLabelText>Related Book</FormControlLabelText>
 						</FormControlLabel>
-						<Input variant="filled" style={styles.input}>
+						<Input variant="outline" style={styles.input}>
 							<InputField
 								placeholder="Search Google Books... E.g. Book Title, Author"
 								value={bookQuery}
