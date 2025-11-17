@@ -1,14 +1,3 @@
-import React, { useEffect, useState } from "react";
-import {
-	Image,
-	KeyboardAvoidingView,
-	Platform,
-	ScrollView,
-	StyleSheet,
-	TouchableOpacity,
-	View,
-} from "react-native";
-
 import { Button, ButtonText } from "@/components/ui/button";
 import {
 	FormControl,
@@ -23,10 +12,20 @@ import { Input, InputField } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { Textarea, TextareaInput } from "@/components/ui/textarea";
 import { VStack } from "@/components/ui/vstack";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
+import {
+	Alert,
+	Image,
+	KeyboardAvoidingView,
+	Platform,
+	ScrollView,
+	StyleSheet,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import { events } from "../../data/eventData";
 
 export default function AddEventScreen() {
@@ -40,10 +39,12 @@ export default function AddEventScreen() {
 	const [isInvalid, setIsInvalid] = useState(false);
 	const [success, setSuccess] = useState(false);
 
-	// Load next available event_id
 	const nextEventId = events.length + 1;
 
-	// Search Google Books API
+	// Fix URL issue
+	const fixURL = (url?: string) => (url ? url.replace(/^http:\/\//, "https://") : undefined);
+
+	// Google Books search
 	useEffect(() => {
 		const fetchBooks = async () => {
 			if (bookQuery.length < 3) return;
@@ -57,17 +58,19 @@ export default function AddEventScreen() {
 				console.error("Failed to fetch books:", err);
 			}
 		};
-
 		const timeout = setTimeout(fetchBooks, 400);
 		return () => clearTimeout(timeout);
 	}, [bookQuery]);
 
-	// Add event locally
+	// Add event
 	const handleAddEvent = async () => {
 		if (!title || !description || !selectedBook) {
 			setIsInvalid(true);
 			return;
 		}
+
+		// Create fresh unique copy for the book thumbnails
+		const thumbnail = fixURL(selectedBook.volumeInfo?.imageLinks?.thumbnail);
 
 		const newEvent = {
 			event_id: nextEventId,
@@ -75,27 +78,32 @@ export default function AddEventScreen() {
 			event_description: description,
 			event_date_time: dateTime.toISOString(),
 			book_id: selectedBook.id,
-			book_thumbnail: selectedBook.volumeInfo?.imageLinks?.thumbnail || null,
+			book_thumbnail: thumbnail,
 			attendees: [],
 		};
 
 		try {
 			const storedEvents = await AsyncStorage.getItem("customEvents");
 			const parsed = storedEvents ? JSON.parse(storedEvents) : [];
-			const updated = [...parsed, newEvent];
+
+			// Deep copy previous events to avoid shared references
+			const updated = parsed.map((e: any) => ({ ...e }));
+			updated.push({ ...newEvent });
 
 			await AsyncStorage.setItem("customEvents", JSON.stringify(updated));
 
+			// Resets form
 			setSuccess(true);
+			Alert.alert("Event Added", "Your event has been created successfuly! ", [
+				{ text: "Dismiss" },
+			]);
 			setTitle("");
 			setDescription("");
 			setBookQuery("");
 			setSelectedBook(null);
 			setDate(new Date());
 
-			setTimeout(() => {
-				router.replace("/(tabs)/events");
-			}, 500);
+			setTimeout(() => router.replace("/(tabs)/events"), 500);
 		} catch (e) {
 			console.error("Failed to save event:", e);
 		}
@@ -108,7 +116,6 @@ export default function AddEventScreen() {
 				style={styles.container}
 			>
 				<Text style={styles.heading}>Add a New Event</Text>
-
 				<VStack space="xl">
 					{/* Event Title */}
 					<FormControl isRequired isInvalid={isInvalid && !title}>
@@ -216,12 +223,12 @@ export default function AddEventScreen() {
 							</View>
 						)}
 
-						{/* ✅ Selected Book */}
+						{/* Selected Book */}
 						{selectedBook && (
 							<View style={styles.selectedBook}>
-								{selectedBook.volumeInfo?.imageLinks?.thumbnail && (
+								{fixURL(selectedBook.volumeInfo?.imageLinks?.thumbnail) && (
 									<Image
-										source={{ uri: selectedBook.volumeInfo.imageLinks.thumbnail }}
+										source={{ uri: fixURL(selectedBook.volumeInfo.imageLinks.thumbnail) }}
 										style={styles.bookThumbnail}
 									/>
 								)}
@@ -250,14 +257,14 @@ export default function AddEventScreen() {
 }
 
 const styles = StyleSheet.create({
-	container: { padding: 20, backgroundColor: "#fff", flexGrow: 1 },
+	container: { padding: 10, backgroundColor: "#fff", flexGrow: 1 },
 	heading: { fontSize: 24, fontWeight: "700", marginBottom: 20, textAlign: "center" },
 	input: { backgroundColor: "#f2f2f2", borderRadius: 8 },
 	textarea: { backgroundColor: "#f2f2f2", borderRadius: 8 },
 	resultsContainer: { marginTop: 10, backgroundColor: "#fafafa", borderRadius: 8 },
 	resultItem: { padding: 10, borderBottomWidth: 1, borderColor: "#ddd" },
-	resultTitle: { fontWeight: "600" },
-	resultAuthor: { color: "#666" },
+	resultTitle: { fontWeight: "600", color: "black" },
+	resultAuthor: { color: "black" },
 	selectedBook: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -266,9 +273,8 @@ const styles = StyleSheet.create({
 		borderRadius: 8,
 		marginTop: 8,
 	},
-	bookTitle: { color: "#fff", fontWeight: "bold", fontSize: 16 },
-	bookAuthor: { color: "#ccc", fontSize: 14 },
+	bookTitle: { color: "black", fontWeight: "bold", fontSize: 16 },
+	bookAuthor: { color: "black", fontSize: 14 },
 	bookThumbnail: { width: 40, height: 60, marginRight: 10, borderRadius: 4 },
-	removeBook: { color: "red", fontSize: 18, marginLeft: 10 },
 	success: { marginTop: 10, color: "green", textAlign: "center" },
 });

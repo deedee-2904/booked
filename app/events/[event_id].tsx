@@ -105,6 +105,9 @@ export default function SingleEventScreen() {
 		);
 	}
 
+	const fixURL = (url?: string) => (url ? url.replace(/^http:\/\//, "https://") : undefined);
+	const thumbnail = fixURL(book?.volumeInfo?.imageLinks?.thumbnail);
+
 	return (
 		<View style={styles.container}>
 			<Stack.Screen options={{ title: event.event_title }} />
@@ -120,10 +123,9 @@ export default function SingleEventScreen() {
 			{loading ? (
 				<ActivityIndicator size="large" color="#fff" style={{ marginVertical: 20 }} />
 			) : (
-				book?.volumeInfo?.imageLinks?.thumbnail && (
+				thumbnail && (
 					<Image
-						source={{ uri: book.volumeInfo.imageLinks.thumbnail }}
-						style={styles.image}
+						source={{ uri: thumbnail }}
 						className="h-[250px] w-[100px] rounded-md aspect-[150/240]"
 						alt={`Book Cover for ${book.volumeInfo.title} by ${book.volumeInfo.authors}`}
 					/>
@@ -132,14 +134,16 @@ export default function SingleEventScreen() {
 
 			{!signedUp ? (
 				<>
-					<Button onPress={() => setShowSignUpModal(true)}>
-						<ButtonText>Sign Up</ButtonText>
-						<ButtonIcon as={AddIcon} />
+					<Button style={styles.signupbutton} onPress={() => setShowSignUpModal(true)}>
+						<ButtonText style={styles.text} size={"xl"}>
+							Sign Up
+						</ButtonText>
+						<ButtonIcon as={AddIcon} className="text-typography-black" />
 					</Button>
 
 					<Modal isOpen={showSignUpModal} onClose={() => setShowSignUpModal(false)} size="md">
 						<ModalBackdrop />
-						<ModalContent style={{backgroundColor: "#332e2eff"}}>
+						<ModalContent style={{ backgroundColor: "white" }}>
 							<ModalHeader />
 							<ModalBody>
 								<Text style={styles.text}>Are you sure you want to sign up for this event?</Text>
@@ -162,14 +166,14 @@ export default function SingleEventScreen() {
 				</>
 			) : (
 				<>
-					<Button onPress={() => setShowCancelModal(true)}>
+					<Button style={styles.goingbutton} size={"xl"} onPress={() => setShowCancelModal(true)}>
 						<ButtonText>You're going!</ButtonText>
 						<ButtonIcon as={CheckIcon} />
 					</Button>
 
 					<Modal isOpen={showCancelModal} onClose={() => setShowCancelModal(false)} size="md">
 						<ModalBackdrop />
-						<ModalContent style={{backgroundColor: "#332e2eff"}}>
+						<ModalContent style={{ backgroundColor: "white" }}>
 							<ModalHeader />
 							<ModalBody>
 								<Text style={styles.text}>
@@ -200,7 +204,6 @@ export default function SingleEventScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingTop: 40,
 		backgroundColor: "#71a261ff",
 		alignItems: "center",
 		justifyContent: "center",
@@ -209,16 +212,27 @@ const styles = StyleSheet.create({
 	heading: {
 		color: "#fff",
 		fontSize: 40,
-		marginBottom: 10,
+		marginTop: -10,
 		textAlign: "center",
+		fontWeight: "bold",
 	},
-	datetime: { fontSize: 15, fontStyle: "italic", color: "#fff", fontWeight: "bold" },
+	datetime: { fontSize: 30, fontStyle: "italic", color: "#fff", fontWeight: "bold", margin: 5 },
 	description: {
 		color: "#fff",
 		fontSize: 20,
+		fontStyle:"italic",
 		textAlign: "center",
+		marginTop: 10,
+		marginBottom: 25,
 	},
-	image: { paddingTop: 60, marginBottom: 10 },
-	text: { color: "#fff" },
+	text: { color: "black" },
 	center: { flex: 1, justifyContent: "center", alignItems: "center" },
+	signupbutton: {
+		marginTop: 40,
+		backgroundColor: "white",
+	},
+	goingbutton: {
+		marginTop: 40,
+		backgroundColor: "green",
+	},
 });

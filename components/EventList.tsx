@@ -20,7 +20,13 @@ export default function EventList() {
 					event_date_time: new Date(e.event_date_time),
 				}));
 
-				setAllEvents([...defaultEvents, ...formattedCustomEvents]);
+				const combined = [...defaultEvents, ...formattedCustomEvents];
+
+				combined.sort(
+					(a, b) => new Date(a.event_date_time).getTime() - new Date(b.event_date_time).getTime()
+				);
+
+				setAllEvents(combined);
 			} catch (err) {
 				console.error("Failed to load events:", err);
 				setAllEvents(defaultEvents);
