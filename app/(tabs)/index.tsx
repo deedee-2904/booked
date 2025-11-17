@@ -9,7 +9,7 @@ export default function Index() {
 			<Image
 				className="rounded-md aspect-[50/50]"
 				source={require("../../assets/images/booked-icon.png")}
-				alt="booked. logo - a green book with the letter b"
+				alt="booked. logo - a green book with a white letter b on the cover"
 			/>
 			<Text style={styles.heading}>booked.</Text>
 			<EventList />
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 40,
 		marginBottom: -50,
+		fontWeight:"bold",
 	},
 	subheading: {
 		color: "#fff",

@@ -5,16 +5,16 @@ import { useColorScheme } from "react-native";
 
 export default function RootLayout() {
 	const colourScheme = useColorScheme();
-	const isDark = colourScheme === "dark";
+	const isLight = colourScheme === "light";
 
 	return (
-		<GluestackUIProvider mode={isDark ? "dark" : "light"}>
+		<GluestackUIProvider mode={isLight ? "light" : "dark"}>
 			<Stack
 				screenOptions={{
 					headerShown: false,
-					headerStyle: { backgroundColor: isDark ? "#000" : "#fff" },
-					headerTintColor: isDark ? "#fff" : "#000",
-					headerTitleStyle: { color: isDark ? "#fff" : "#000" },
+					headerStyle: { backgroundColor: isLight ? "#fff" : "#000" },
+					headerTintColor: isLight ? "#000" : "#fff",
+					headerTitleStyle: { color: isLight ? "#000" : "#fff" },
 				}}
 			>
 				<Stack.Screen name="(tabs)" options={{ title: "Home" }} />
