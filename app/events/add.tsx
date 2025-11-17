@@ -110,12 +110,17 @@ export default function AddEventScreen() {
 	};
 
 	return (
-		<ScrollView contentContainerStyle={styles.container}>
-			<KeyboardAvoidingView
-				behavior={Platform.OS === "ios" ? "padding" : "height"}
-				style={styles.container}
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={{ flex: 1, backgroundColor: "#71a261ff" }}
+			keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+		>
+			<ScrollView
+				contentContainerStyle={styles.container}
+				showsVerticalScrollIndicator={false}
+				keyboardShouldPersistTaps="handled"
 			>
-				<Text style={styles.heading}>Add a New Event</Text>
+				<Text style={styles.heading}>Enter Your Event Details!</Text>
 				<VStack space="xl">
 					{/* Event Title */}
 					<FormControl isRequired isInvalid={isInvalid && !title}>
@@ -143,8 +148,8 @@ export default function AddEventScreen() {
 						<FormControlLabel>
 							<FormControlLabelText>Date & Time</FormControlLabelText>
 						</FormControlLabel>
-						<Button onPress={() => setShowPicker(true)}>
-							<ButtonText>
+						<Button onPress={() => setShowPicker(true)} style={{ backgroundColor: "white" }}>
+							<ButtonText style={{ color: "black" }}>
 								{dateTime.toLocaleDateString()} —{" "}
 								{dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
 							</ButtonText>
@@ -223,6 +228,13 @@ export default function AddEventScreen() {
 							</View>
 						)}
 
+						{isInvalid && !selectedBook && (
+							<FormControlError>
+								<FormControlErrorIcon as={AlertCircleIcon} />
+								<FormControlErrorText>A book must be selected.</FormControlErrorText>
+							</FormControlError>
+						)}
+
 						{/* Selected Book */}
 						{selectedBook && (
 							<View style={styles.selectedBook}>
@@ -246,24 +258,31 @@ export default function AddEventScreen() {
 					</FormControl>
 
 					<Button onPress={handleAddEvent}>
-						<ButtonText>Add Event</ButtonText>
+						<ButtonText>Create Event</ButtonText>
 					</Button>
 				</VStack>
 
 				{success && <Text style={styles.success}>✅ Event added successfully!</Text>}
-			</KeyboardAvoidingView>
-		</ScrollView>
+			</ScrollView>
+		</KeyboardAvoidingView>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: { padding: 10, backgroundColor: "#fff", flexGrow: 1 },
-	heading: { fontSize: 24, fontWeight: "700", marginBottom: 20, textAlign: "center" },
+	container: { padding: 25, flexGrow: 1 },
+	heading: {
+		fontSize: 29,
+		fontWeight: "700",
+		marginBottom: 20,
+		textAlign: "center",
+		lineHeight: 48,
+		color: "black",
+	},
 	input: { backgroundColor: "#f2f2f2", borderRadius: 8 },
 	textarea: { backgroundColor: "#f2f2f2", borderRadius: 8 },
 	resultsContainer: { marginTop: 10, backgroundColor: "#fafafa", borderRadius: 8 },
 	resultItem: { padding: 10, borderBottomWidth: 1, borderColor: "#ddd" },
-	resultTitle: { fontWeight: "600", color: "black" },
+	resultTitle: { fontWeight: "bold", color: "black" },
 	resultAuthor: { color: "black" },
 	selectedBook: {
 		flexDirection: "row",

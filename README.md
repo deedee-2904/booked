@@ -4,19 +4,32 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 booked. is an events app for a fictional bookshop to list all their bookish events.
 
+Here's a link to the [hosted version]()!
+
 ## Current Features
 
 - A user can view a scrollable list of upcoming events
 - A user can create events using the create event form
+- Users can add their signed up events to their Google Calendar
 
 ## Features to Come
 
-- Users can add their signed up events to their Google Calendar
+- Home event list is limited to 3 event cards
+- Light and Dark mode
+- Better loading animations
+- Clear error messages
 - Payment platform integration
 - A confirmation email once you have signed up to an event
 - Social media integration
 - Logging in using a google account or other social media
 - A website version
+
+## Things to Note
+
+- Events only take a start date and by default have a 3 hour duration when added to a users google calendar
+- There are two user logins:
+   - username: admin, password: 1234
+   - username: customer, password: abcd
 
 
 ## Get started
