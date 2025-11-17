@@ -10,11 +10,12 @@ import {
 	ModalHeader,
 } from "@/components/ui/modal";
 import { events } from "@/data/eventData";
+import { useAuth } from "@/providers/AuthProvider";
+import formatForGoogleCalendar from "@/utils/formatDate";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import { useAuth } from "@/providers/AuthProvider";
+import { ActivityIndicator, Linking, StyleSheet, Text, View } from "react-native";
 
 export default function SingleEventScreen() {
 	const params = useLocalSearchParams<{ event_id: string }>();
@@ -25,8 +26,9 @@ export default function SingleEventScreen() {
 	const [signedUp, setSignedUp] = useState(false);
 	const [showSignUpModal, setShowSignUpModal] = useState(false);
 	const [showCancelModal, setShowCancelModal] = useState(false);
+	const location = "Waterstones Piccadilly, London, UK";
 
-	const {currentUser}= useAuth()
+	const { currentUser } = useAuth();
 
 	// Load custom events from AsyncStorage
 	useEffect(() => {
@@ -135,7 +137,7 @@ export default function SingleEventScreen() {
 				)
 			)}
 
-			{!signedUp && !currentUser?.isAdmin? (
+			{!signedUp && !currentUser?.isAdmin ? (
 				<>
 					<Button style={styles.signupbutton} onPress={() => setShowSignUpModal(true)}>
 						<ButtonText style={styles.text} size={"xl"}>
@@ -173,6 +175,34 @@ export default function SingleEventScreen() {
 						<ButtonText>You're going!</ButtonText>
 						<ButtonIcon as={CheckIcon} />
 					</Button>
+					{signedUp && currentUser && (
+						<Button
+							style={{ marginTop: 20, backgroundColor: "#4285F4" }}
+							onPress={() => {
+								if (!event) return;
+
+								const startDate = new Date(event.event_date_time);
+								const endDate = new Date(startDate.getTime() + 3* 60 * 60 * 1000);
+
+								const start = formatForGoogleCalendar(startDate);
+								const end = formatForGoogleCalendar(endDate);
+
+								const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+									event.event_title
+								)}&dates=${start}/${end}&details=${encodeURIComponent(
+									event.event_description
+								)}&location=${encodeURIComponent(
+									"Waterstones Piccadilly, London, UK"
+								)}&sf=true&output=xml`;
+
+								Linking.openURL(url);
+							}}
+						>
+							<ButtonText style={{ color: "white", fontWeight: "bold" }}>
+								Add to Google Calendar
+							</ButtonText>
+						</Button>
+					)}
 
 					<Modal isOpen={showCancelModal} onClose={() => setShowCancelModal(false)} size="md">
 						<ModalBackdrop />
@@ -223,7 +253,7 @@ const styles = StyleSheet.create({
 	description: {
 		color: "#fff",
 		fontSize: 20,
-		fontStyle:"italic",
+		fontStyle: "italic",
 		textAlign: "center",
 		marginTop: 10,
 		marginBottom: 25,
