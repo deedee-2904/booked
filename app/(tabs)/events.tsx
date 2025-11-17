@@ -1,16 +1,18 @@
 import EventList from "@/components/EventList";
 import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
 import { EditIcon } from "@/components/ui/icon";
+import { useAuth } from "@/providers/AuthProvider";
 import { router } from "expo-router";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function EventScreen() {
+	const {currentUser} = useAuth()
 	return (
 		<SafeAreaView style={styles.container}>
 			<Text style={styles.heading}>All Events</Text>
 			<EventList />
-			<Button
+			{currentUser?.isAdmin&&(<Button
 				style={styles.button}
 				size="xl"
 				className="rounded-full"
@@ -18,7 +20,7 @@ export default function EventScreen() {
 			>
 				<ButtonIcon as={EditIcon} className="text-typography-black" />
 				<ButtonText style={styles.buttontext}>Create a New Event</ButtonText>
-			</Button>
+			</Button>)}
 		</SafeAreaView>
 	);
 }
