@@ -4,7 +4,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 booked. is an events app for a fictional bookshop to list all their bookish events.
 
-Here's a link to the [hosted version]()!
+Here's the [video link](https://www.youtube.com/channel/UCsP-JhykRTALaNdFHUeWDjQ) to explain more about the app!
 
 ## Current Features
 
