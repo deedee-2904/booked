@@ -1,11 +1,12 @@
 import { Image } from "@/components/ui/image";
 import { EventCardProps } from "@/data/eventData";
 import { Link } from "expo-router";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable } from "react-native";
 import { Card } from "./ui/card";
 import { HStack } from "./ui/hstack";
 import { Text } from "./ui/text";
 import { VStack } from "./ui/vstack";
+import { LoadingSkeleton } from "./Loading";
 
 export default function EventCard({ book, event }: EventCardProps) {
 	const rawThumb = book?.volumeInfo?.imageLinks?.thumbnail || event.book_thumbnail;
@@ -52,12 +53,15 @@ export default function EventCard({ book, event }: EventCardProps) {
 								})}
 							</Text>
 						</VStack>
-						{book && thumbnail && (
+						{/* Render thumbnail or loading skeleton */}
+						{thumbnail ? (
 							<Image
 								source={{ uri: thumbnail }}
-								className=" h-[150px] w-[100px] rounded-md aspect-[150/240]"
-								alt={`Book Cover for ${book.volumeInfo.title} by ${book.volumeInfo.authors}`}
+								className="h-[150px] w-[100px] rounded-md aspect-[150/240]"
+								alt={`Book Cover for ${book?.volumeInfo?.title}`}
 							/>
+						) : (
+							<LoadingSkeleton width={100} height={150} />
 						)}
 					</HStack>
 				</Card>
@@ -66,5 +70,3 @@ export default function EventCard({ book, event }: EventCardProps) {
 	);
 }
 
-//seperate styles into stylesheets
-const styles = StyleSheet.create({});

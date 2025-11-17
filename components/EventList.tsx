@@ -1,13 +1,14 @@
 import { events as defaultEvents } from "@/data/eventData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EventCard from "./EventCard";
 
 export default function EventList() {
 	const [allEvents, setAllEvents] = useState<any[]>([]);
 	const [books, setBooks] = useState<{ [key: number]: any }>({});
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const loadEvents = async () => {
@@ -30,6 +31,8 @@ export default function EventList() {
 			} catch (err) {
 				console.error("Failed to load events:", err);
 				setAllEvents(defaultEvents);
+			} finally {
+				setLoading(false);
 			}
 		};
 
@@ -54,9 +57,33 @@ export default function EventList() {
 		});
 	}, [allEvents]);
 
+	{
+		allEvents.map((event, index) => {
+			const book = books[event.event_id];
+
+			const isLoading = event.book_id && !book;
+
+			return isLoading ? (
+				<View
+					key={`loading-${event.event_id}-${index}`}
+					style={{
+						alignSelf: "center",
+						marginBottom: 16,
+						width: 360, 
+						height: 180,
+						borderRadius: 12,
+						backgroundColor: "#e0e0e0",
+					}}
+				/>
+			) : (
+				<EventCard key={`event-${event.event_id}-${index}`} book={book} event={event} />
+			);
+		});
+	}
+
 	return (
 		<SafeAreaView>
-			<ScrollView>
+			<ScrollView showsVerticalScrollIndicator={false}>
 				{allEvents.map((event, index) => {
 					const book = books[event.event_id];
 					return <EventCard key={`event-${event.event_id}-${index}`} book={book} event={event} />;
