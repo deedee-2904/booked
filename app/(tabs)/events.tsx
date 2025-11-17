@@ -1,5 +1,5 @@
 import EventList from "@/components/EventList";
-import { Button, ButtonIcon } from "@/components/ui/button";
+import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
 import { EditIcon } from "@/components/ui/icon";
 import { router } from "expo-router";
 import { StyleSheet, Text } from "react-native";
@@ -10,8 +10,14 @@ export default function EventScreen() {
 		<SafeAreaView style={styles.container}>
 			<Text style={styles.heading}>All Events</Text>
 			<EventList />
-			<Button style={styles.button} size="xl" className="rounded-full" onPress={() => router.push("/events/add") }>
-				<ButtonIcon as={EditIcon} />
+			<Button
+				style={styles.button}
+				size="xl"
+				className="rounded-full"
+				onPress={() => router.push("/events/add")}
+			>
+				<ButtonIcon as={EditIcon} className="text-typography-black" />
+				<ButtonText style={styles.buttontext}>Create a New Event</ButtonText>
 			</Button>
 		</SafeAreaView>
 	);
@@ -21,15 +27,21 @@ const styles = StyleSheet.create({
 	heading: {
 		color: "#fff",
 		fontSize: 40,
-		marginBottom: -50,
+		fontWeight:"bold",
+		marginBottom:-40,
 	},
 	container: {
 		flex: 1,
-		paddingTop:30,
+		paddingTop: 30,
 		backgroundColor: "#71a261ff",
 		alignItems: "center",
 		justifyContent: "center",
-	},button:{
-		marginBottom:0
-	}
+	},
+	button: {
+		marginTop: -10,
+		backgroundColor: "white",
+	},
+	buttontext: {
+		color: "black",
+	},
 });

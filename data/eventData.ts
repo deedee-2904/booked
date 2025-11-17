@@ -24,7 +24,7 @@ export const events = [
 	{
 		event_id: 2,
 		event_title: "Mate Midnight Book Release Party",
-		event_date_time: new Date(2025, 1, 11, 0, 0),
+		event_date_time: new Date(2026, 1, 11, 0, 0),
 		event_description:
 			"Get your copy of the highly anticipated sequel to Bride by Ali Hazelwood, freebies are limited.",
 		book_id: "ztdIEQAAQBAJ",
