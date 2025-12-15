@@ -4,13 +4,19 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 booked. is an events app for a fictional bookshop to list all their bookish events.
 
-Here's the [video link](https://www.youtube.com/channel/UCsP-JhykRTALaNdFHUeWDjQ) to explain more about the app!
-
 ## Current Features
 
-- A user can view a scrollable list of upcoming events
-- A user can create events using the create event form
-- Users can add their signed up events to their Google Calendar
+- A user can view a scrollable list of upcoming events.  
+<img src="app-demo-pics/booked - home page.png" width="200" height="400"/>
+<img src="app-demo-pics/booked - events page.png" width="200" height="400"/>
+
+- A user can create events using the create event form.  
+<img src="app-demo-pics/booked -  create events form.png" width="200" height="400"/> <img src="app-demo-pics/booked - submission confirmation.png" width="200" height="400"/>
+
+- Users can add their signed up events to their Google Calendar.  
+<img src="app-demo-pics/booked - event page before sign up.png" width="200" height="400"/>
+<img src="app-demo-pics/booked - after sign up.png" width="200" height="400"/>
+<img src="app-demo-pics/booked - google calendar.png" width="200" height="400"/>
 
 ## Features to Come
 
@@ -29,7 +35,8 @@ Here's the [video link](https://www.youtube.com/channel/UCsP-JhykRTALaNdFHUeWDjQ
 - Events only take a start date and by default have a 3 hour duration when added to a users google calendar
 - There are two user logins:
    - username: admin, password: 1234
-   - username: customer, password: abcd
+   - username: customer, password: abcd  
+  <img src="app-demo-pics/booked - login page.png" width="200" height="400"/> <img src="app-demo-pics/booked - login page w: keyboard.png" width="200" height="400"/>
 
 
 ## Get started
