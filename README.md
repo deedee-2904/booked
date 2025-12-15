@@ -7,16 +7,13 @@ booked. is an events app for a fictional bookshop to list all their bookish even
 ## Current Features
 
 - A user can view a scrollable list of upcoming events.  
-<img src="app-demo-pics/booked - home page.png" width="200" height="400"/>
-<img src="app-demo-pics/booked - events page.png" width="200" height="400"/>
+<img src="app-demo-pics/booked - home page.png" width="200" height="400"/> <img src="app-demo-pics/booked - events page.png" width="200" height="400"/>
 
 - A user can create events using the create event form.  
 <img src="app-demo-pics/booked -  create events form.png" width="200" height="400"/> <img src="app-demo-pics/booked - submission confirmation.png" width="200" height="400"/>
 
 - Users can add their signed up events to their Google Calendar.  
-<img src="app-demo-pics/booked - event page before sign up.png" width="200" height="400"/>
-<img src="app-demo-pics/booked - after sign up.png" width="200" height="400"/>
-<img src="app-demo-pics/booked - google calendar.png" width="200" height="400"/>
+<img src="app-demo-pics/booked - event page before sign up.png" width="200" height="400"/> <img src="app-demo-pics/booked - after sign up.png" width="200" height="400"/> <img src="app-demo-pics/booked - google calendar.png" width="200" height="400"/>
 
 ## Features to Come
 
